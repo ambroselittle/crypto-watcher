@@ -11,9 +11,6 @@ SELECT
 FROM pair`;
 
         data.pairs = await query(select.text, select.values);
-
-        console.log(data);
-
         return { data, context };
     },
 }
