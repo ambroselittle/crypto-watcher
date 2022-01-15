@@ -1,0 +1,23 @@
+{
+  "engines": {
+    "node": "16.13.1",
+    "npm": "^8.1.0"
+  },
+  "scripts": {
+    "start": "per-env",
+    "start:development": ". ./etc/devbuild.sh; nodemon ./src/server.js",
+    "start:production": "node ./src/server.js",
+    "test": ". ./etc/devbuild.sh; jest --watch"
+  },
+  "dependencies": {
+    "axios": "0.24.0",
+    "compozor": "0.7.1",
+    "express": "4.17.2",
+    "per-env": "1.0.2",
+    "pg": "8.7.1"
+  },
+  "devDependencies": {
+    "jest": "27.4.7",
+    "nodemon": "2.0.15"
+  }
+}

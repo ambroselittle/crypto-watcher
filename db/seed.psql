@@ -1,0 +1,8 @@
+INSERT INTO public.pair (pair_name, exchange) VALUES
+    ('btcusd', 'bitfinex'),
+    ('ltcusd', 'bitfinex')
+
+
+/**
+DELETE FROM public.pair;
+*/

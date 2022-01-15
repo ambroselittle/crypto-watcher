@@ -1,0 +1,27 @@
+
+
+CREATE TABLE IF NOT EXISTS "public"."pair" (
+    "id" SERIAL, -- using int for perf (as opposed to uuid), since it's an internal-only identifier
+    "pair_name" TEXT NOT NULL,
+    "exchange" TEXT NOT NULL,
+    PRIMARY KEY ("id")
+);
+
+-- System assumption will be minute level granularity, but we could add a granularity here if we want to be more flexible..
+CREATE TABLE IF NOT EXISTS "public"."pair_ohlc" (
+    "pair_id" INTEGER NOT NULL,
+    "close_time" BIGINT NOT NULL, -- unix epoch timestamp
+    "volume" MONEY NOT NULL, -- volume in crypto units
+    PRIMARY KEY ("pair_id", "close_time")
+);
+
+ALTER TABLE ONLY public.pair_ohlc
+    ADD CONSTRAINT pair_ohlc_pair_id_fkey FOREIGN KEY (pair_id) REFERENCES public.pair(id);
+
+
+/*
+For while developing script, to reset...
+
+DROP TABLE "public"."pair_ohlc";
+DROP TABLE "public"."pair";
+*/

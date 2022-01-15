@@ -1,0 +1,16 @@
+version: "3"
+
+# Must have epiquery running on EPISTREAM_SERVER...
+
+services:
+  crypto-watch-api:
+    container_name: crypto-watch-api
+    image: crypto-watch-api
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+    ports:
+      - ${PORT}:${PORT}
+    tty: true
