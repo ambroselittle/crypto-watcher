@@ -1,4 +1,4 @@
-const { sql, query } = require('../../db');
+const { sql, query } = require('../../../lib/db');
 
 module.exports = {
     process: async (data, context) => {

@@ -69,5 +69,8 @@ module.exports = {
             return release.apply(client)
         }
         return client
-    }
+    },
+    async close() {
+        await pool.end();
+    },
 }

@@ -1,7 +1,9 @@
-const { sql, query } = require('../../db');
+const { sql, query } = require('../../../lib/db');
 
 module.exports = {
     process: async (data, context) => {
+
+        // TODO: Get deviation and ranking
 
         const select = sql`
 SELECT
@@ -10,7 +12,7 @@ SELECT
 FROM    pair_ohlc pv
 JOIN    pair p ON p.id = pv.pair_id
 WHERE   p.exchange = ${context.params.exchange}
-        AND p.pair_name = ${context.params.pair_name}
+        AND p.pair_name = ${context.params.pair}
 `;
 
         const entries = await query(select.text, select.values);
@@ -18,8 +20,6 @@ WHERE   p.exchange = ${context.params.exchange}
         data.history = {
             entries,
         };
-
-        console.log(data);
 
         return { data, context };
     },

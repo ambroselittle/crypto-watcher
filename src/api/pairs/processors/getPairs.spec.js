@@ -1,7 +1,7 @@
-const { mockDb } = require('../../__test__/db');
+const { mockDb } = require('../../../__test__/db');
 
 beforeEach(() => {
-    jest.dontMock('../../db');
+    jest.dontMock('../../../lib/db');
 })
 
 const getContext = () => ({});
@@ -9,7 +9,14 @@ const getContext = () => ({});
 const getData = () => ({});
 
 it('should get a list of pairs', async () => {
-    //const { query } = mockDb([]);
+    const expectedData = {
+        pairs: [
+            { id: 1, exchange: 'bitfinex', pair_name: 'btcusd' },
+            { id: 2, exchange: 'bitfinex', pair_name: 'ltcusd' }
+        ]
+    };
+
+    const { query } = mockDb(expectedData.pairs);
     const data = getData();
     const context = getContext();
 
@@ -17,9 +24,6 @@ it('should get a list of pairs', async () => {
 
     const actual = await process(data, context);
 
-    expect(actual.data).toEqual({
-        pairs: [],
-    });
-
-    //expect(query).toHaveBeenCalledTimes(1);
+    expect(actual.data).toEqual(expectedData);
+    expect(query).toHaveBeenCalledTimes(1);
 });

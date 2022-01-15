@@ -1,19 +1,28 @@
-const { mockDb } = require('../../__test__/db');
+const { mockDb } = require('../../../__test__/db');
 
 beforeEach(() => {
-    jest.dontMock('../../db');
+    jest.dontMock('../../../lib/db');
 })
 
-const getContext = (pair = 'btcusd') => ({
+const getContext = () => ({
     params: {
-        pair,
-    },
+        exchange: 'bitmix',
+        pair: 'btceur',
+    }
 });
 
 const getData = () => ({});
 
-it('should get the recent history for a pair', async () => {
-    const { query } = mockDb([]);
+it('should get recent pair history', async () => {
+    const expectedData = {
+        history: {
+            entries: [
+                // TODO: Get real mock data
+            ],
+        },
+    };
+
+    const { query } = mockDb(expectedData.history.entries);
     const data = getData();
     const context = getContext();
 
@@ -21,11 +30,6 @@ it('should get the recent history for a pair', async () => {
 
     const actual = await process(data, context);
 
-    expect(actual.data).toEqual({
-        history: {
-            entries: [],
-        },
-    });
-
+    expect(actual.data).toEqual(expectedData);
     expect(query).toHaveBeenCalledTimes(1);
 });
