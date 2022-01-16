@@ -4,8 +4,7 @@ module.exports = {
     prerequisites: ['getPairLatest'],
 
     process: async (data, context) => {
-        console.log('Calculate Deviation:', context.pair);
-
+        context.pair.stdDev = stDev.population(context.pair.candles.map(candle => candle.volume));
 
         return { data, context };
     },

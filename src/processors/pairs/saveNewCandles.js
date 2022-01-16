@@ -1,9 +1,7 @@
 module.exports = {
     process: async (data, context) => {
-        console.log('Save Pair', context.pair);
-
-        // TODO: save pair summary (deviation/last polled) to pair database table
         // TODO: save new pair entries to pair_ohlc database table
+        console.log('TODO: Save New Pair Candles', context.pair);
 
         return { data, context };
     },

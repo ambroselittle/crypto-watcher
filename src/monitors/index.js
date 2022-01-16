@@ -33,10 +33,15 @@ const startMonitor = async (monitor) => {
         await stopMonitor(monitor);
     }
 
+    // run first time
+    await monitor.start();
+
+    // set up interval
     monitor.intervalRef = setInterval(async () => {
         console.log('Running Monitor:', monitor.name);
         await monitor.start();
     }, monitor.interval);
+
     monitor.started = true;
 }
 

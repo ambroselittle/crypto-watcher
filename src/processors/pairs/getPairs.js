@@ -7,7 +7,7 @@ module.exports = {
 SELECT
     id,
     exchange,
-    pair_name,
+    pair_name AS pair,
     last_poll_timestamp,
     day_std_dev
 FROM pair`;

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS "public"."pair" (
 CREATE TABLE IF NOT EXISTS "public"."pair_ohlc" (
     "pair_id" INTEGER NOT NULL,
     "close_time" BIGINT NOT NULL, -- unix epoch timestamp
-    "volume" MONEY NOT NULL, -- volume in crypto units
+    "volume" DECIMAL NOT NULL, -- volume in crypto units
     PRIMARY KEY ("pair_id", "close_time")
 );
 

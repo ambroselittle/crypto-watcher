@@ -1,9 +1,10 @@
 const { sql, query } = require('../../lib/db');
 
 module.exports = {
+    prerequisites: ['determineRecency'],
     process: async (data, context) => {
 
-        // TODO: Get deviation and ranking
+        const { exchange, pair } = context.pair || context.params || {}; // could come from straight context or via API params
 
         const select = sql`
 SELECT
@@ -11,16 +12,24 @@ SELECT
         pv.volume
 FROM    pair_ohlc pv
 JOIN    pair p ON p.id = pv.pair_id
-WHERE   p.exchange = ${context.params.exchange}
-        AND p.pair_name = ${context.params.pair}
+WHERE   p.exchange = ${exchange}
+        AND p.pair_name = ${pair}
+        AND pv.close_time >= ${parseInt(context.candlesSince / 1000)}
 `;
 
-        const candles = await query(select.text, select.values);
 
+        const rows = await query(select.text, select.values);
+
+        // TODO: Get deviation and ranking for pair; hard code for now:
         context.pair = {
-            exchange: context.params.exchange,
-            pair: context.params.pair,
-            candles,
+            exchange,
+            pair,
+            stdDev: 23.13,
+            rank: 3,
+            candles: rows.map(row => ({
+                close_time: parseInt(row.close_time),
+                volume: parseFloat(row.volume),
+            })),
         }
 
         return { data, context };

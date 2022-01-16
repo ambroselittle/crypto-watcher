@@ -6,7 +6,7 @@ const getContext = () => ({
     pair: {
         exchange: 'kraken',
         pair: 'btcusd',
-        candles: rawData.result[60],
+        newCandles: rawData.result[60],
     },
 });
 
@@ -19,5 +19,5 @@ it('should convert from raw pairs to formatted', async () => {
 
     const actual = await process(getData(), getContext());
 
-    expect(actual.context.pair.candles).toEqual(expectedData);
+    expect(actual.context.pair.newCandles).toEqual(expectedData);
 });

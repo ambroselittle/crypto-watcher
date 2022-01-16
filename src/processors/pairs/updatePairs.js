@@ -1,13 +1,18 @@
-const { compose } = require('compozor');
+const { compose, parallel } = require('compozor');
 
 const updatePair = compose('Update Pair', {
     processorsPath: require('path').resolve('./src/processors/pairs'),
     pipeline: [
-        'getPairLatest',
+        'determineRecency',
+        parallel(
+            'getPairHistory', // get existing candles for the time period
+            'getPairLatest', // get new since last poll or current time period
+        ),
         'formatPairData',
-        'groupHistoryHourly',
+        'saveNewCandles',
+        'mergeNewCandles',
+        'groupHistoryHourly', // we calculate deviation by the subset of time slices
         'calculateDeviation',
-        'savePair',
     ],
 });
 
