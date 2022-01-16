@@ -1,4 +1,4 @@
-const { sql, query } = require('../../../lib/db');
+const { sql, query } = require('../../lib/db');
 
 module.exports = {
     process: async (data, context) => {
@@ -15,11 +15,13 @@ WHERE   p.exchange = ${context.params.exchange}
         AND p.pair_name = ${context.params.pair}
 `;
 
-        const entries = await query(select.text, select.values);
+        const candles = await query(select.text, select.values);
 
-        data.history = {
-            entries,
-        };
+        context.pair = {
+            exchange: context.params.exchange,
+            pair: context.params.pair,
+            candles,
+        }
 
         return { data, context };
     },

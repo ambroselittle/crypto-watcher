@@ -3,7 +3,7 @@ const { compose } = require('compozor');
 const PAIR_POLLING_INTERVAL_SEC = Number.parseInt(process.env.PAIR_POLLING_INTERVAL_SEC) || 60;
 
 const monitorPairs = compose('Monitor Pair Volumes', {
-    processorsPath: require('path').join(__dirname, './processors'),
+    processorsPath: require('path').resolve('./src/processors/pairs'),
     pipeline: [
         'getPairs',
         'updatePairs',

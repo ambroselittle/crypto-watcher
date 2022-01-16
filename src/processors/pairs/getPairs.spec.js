@@ -1,8 +1,6 @@
-const { mockDb } = require('../../../__test__/db');
+const { mockDb, unMockDb } = require('../../__test__/db');
 
-beforeEach(() => {
-    jest.dontMock('../../../lib/db');
-})
+beforeEach(unMockDb);
 
 const getContext = () => ({});
 

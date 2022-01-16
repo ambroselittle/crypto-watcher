@@ -1,8 +1,8 @@
 INSERT INTO public.pair (pair_name, exchange) VALUES
-    ('btcusd', 'bitfinex'),
-    ('ltcusd', 'bitfinex')
+    ('btcusd', 'kraken'),
+    ('ltcusd', 'kraken'),
+    ('ethusd', 'kraken')
 
-
-/**
+/* For resetting during tweaking:
 DELETE FROM public.pair;
 */

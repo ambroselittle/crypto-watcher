@@ -1,9 +1,11 @@
 const { compose } = require('compozor');
 
 const updatePair = compose('Update Pair', {
-    processorsPath: require('path').join(__dirname, './'),
+    processorsPath: require('path').resolve('./src/processors/pairs'),
     pipeline: [
         'getPairLatest',
+        'formatPairData',
+        'groupHistoryHourly',
         'calculateDeviation',
         'savePair',
     ],

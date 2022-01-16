@@ -1,8 +1,7 @@
-const { mockDb } = require('../../../__test__/db');
+const { mockDb, unMockDb } = require('../../__test__/db');
+const allEntries = require('./__test__/formatPairData.json');
 
-beforeEach(() => {
-    jest.dontMock('../../../lib/db');
-})
+beforeEach(unMockDb);
 
 const getContext = () => ({
     params: {
@@ -14,15 +13,9 @@ const getContext = () => ({
 const getData = () => ({});
 
 it('should get recent pair history', async () => {
-    const expectedData = {
-        history: {
-            entries: [
-                // TODO: Get real mock data
-            ],
-        },
-    };
+    const expectedCandles = allEntries;
 
-    const { query } = mockDb(expectedData.history.entries);
+    const { query } = mockDb(expectedCandles);
     const data = getData();
     const context = getContext();
 
@@ -30,6 +23,6 @@ it('should get recent pair history', async () => {
 
     const actual = await process(data, context);
 
-    expect(actual.data).toEqual(expectedData);
+    expect(actual.context.pair.candles).toEqual(expectedCandles);
     expect(query).toHaveBeenCalledTimes(1);
 });

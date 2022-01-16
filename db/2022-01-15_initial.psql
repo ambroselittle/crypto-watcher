@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS "public"."pair" (
     "id" SERIAL, -- using int for perf (as opposed to uuid), since it's an internal-only identifier
     "pair_name" TEXT NOT NULL,
     "exchange" TEXT NOT NULL,
+    "last_poll_timestamp" BIGINT NULL, -- used so we know how far back to poll for on updates
+    "day_std_dev" NUMERIC(5,4) NULL, -- deviation of trading volume over last 24 hour period
     PRIMARY KEY ("id")
 );
 

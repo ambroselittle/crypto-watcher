@@ -8,6 +8,11 @@ const mockDb = (expectedResult) => {
     return { query };
 }
 
+const unMockDb = () => {
+    jest.dontMock('../lib/db');
+}
+
 module.exports = {
     mockDb,
+    unMockDb,
 }
